@@ -6,6 +6,9 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
+// Thiết lập múi giờ Việt Nam
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 class Database {
     private $pdo;
     
@@ -17,6 +20,9 @@ class Database {
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false
             ]);
+            
+            // Thiết lập múi giờ cho MySQL
+            $this->pdo->exec("SET time_zone = '+07:00'");
         } catch (PDOException $e) {
             throw new Exception("Connection failed: " . $e->getMessage());
         }

@@ -1,7 +1,10 @@
 class AnalyticsDashboard {
     constructor() {
         this.apiBaseUrl = '../api/stats.php';
-        this.currentDate = new Date().toISOString().split('T')[0];
+        // Sử dụng múi giờ Việt Nam để lấy ngày hiện tại
+        this.currentDate = new Date().toLocaleDateString('sv-SE', {
+            timeZone: 'Asia/Ho_Chi_Minh'
+        });
         this.currentType = 'total';
         this.selectedDomain = '';
         this.charts = {};
@@ -256,7 +259,8 @@ class AnalyticsDashboard {
             return;
         }
         
-        const hours = Array.from({length: 24}, (_, i) => `${i}:00`);
+        // Tạo nhãn giờ theo múi giờ Việt Nam
+        const hours = Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`);
         const colors = [
             '#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
             '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#6366f1'
@@ -287,7 +291,7 @@ class AnalyticsDashboard {
                     },
                     title: {
                         display: true,
-                        text: `Thống kê ${this.currentType === 'total' ? 'tổng lượt truy cập' : 'chủ thể thật'} - ${this.formatDate(data.date)}`
+                        text: `Thống kê ${this.currentType === 'total' ? 'tổng lượt truy cập' : 'chủ thể thật'} - ${this.formatDate(data.date)} (Giờ Việt Nam)`
                     }
                 },
                 scales: {
@@ -438,7 +442,8 @@ class AnalyticsDashboard {
         const date = new Date(dateString);
         return date.toLocaleDateString('vi-VN', { 
             day: '2-digit', 
-            month: '2-digit'
+            month: '2-digit',
+            timeZone: 'Asia/Ho_Chi_Minh'
         });
     }
 }

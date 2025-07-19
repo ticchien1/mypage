@@ -52,28 +52,27 @@ try {
 }
 
 function getHourlyStats($db, $date, $domain = null, $type = 'total') {
-    $startDate = $date . ' 00:00:00';
-    $endDate = $date . ' 23:59:59';
-    
+    // Sử dụng múi giờ Việt Nam cho thống kê theo giờ
     if ($domain) {
         // Stats cho một domain cụ thể
         $domainCondition = "AND d.domain_name = ?";
-        $params = [$startDate, $endDate, $domain];
+        $params = [$date, $domain];
     } else {
         // Stats cho tất cả domain
         $domainCondition = "";
-        $params = [$startDate, $endDate];
+        $params = [$date];
     }
     
     $column = $type === 'unique' ? 'unique_visitors' : 'total_visits';
     
+    // Sử dụng múi giờ Việt Nam cho thống kê theo giờ
     $sql = "SELECT 
                 HOUR(hs.date_hour) as hour,
                 d.domain_name,
                 COALESCE(SUM(hs.$column), 0) as count
             FROM domains d
             LEFT JOIN hourly_stats hs ON d.id = hs.domain_id 
-                AND hs.date_hour >= ? AND hs.date_hour <= ?
+                AND DATE(hs.date_hour) = ?
             WHERE d.status = 'active' $domainCondition
             GROUP BY d.domain_name, HOUR(hs.date_hour)
             ORDER BY d.domain_name, hour";
@@ -162,7 +161,7 @@ function getRealtimeStats($db, $domain = null) {
         $params = [];
     }
     
-    // Lấy stats 5 phút gần nhất
+    // Lấy stats 5 phút gần nhất - sử dụng múi giờ Việt Nam
     $sql = "SELECT 
                 d.domain_name,
                 COUNT(*) as visits,
