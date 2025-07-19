@@ -30,8 +30,8 @@ website-analytics/
 ### 1.1. Tạo Database
 ```sql
 -- Chạy file database.sql hoặc thực hiện các lệnh sau:
-CREATE DATABASE website_analytics;
-USE website_analytics;
+CREATE DATABASE domainn4_track;
+USE domainn4_track;
 
 -- Tạo các bảng như trong file database.sql
 ```
@@ -40,9 +40,9 @@ USE website_analytics;
 Chỉnh sửa file `config/database.php`:
 ```php
 define('DB_HOST', 'localhost');     // Host database
-define('DB_NAME', 'website_analytics'); // Tên database
-define('DB_USER', 'root');          // Username
-define('DB_PASS', '');              // Password
+define('DB_NAME', 'domainn4_track'); // Tên database
+define('DB_USER', 'domainn4_track');          // Username
+define('DB_PASS', 'domainn4_track');              // Password
 ```
 
 ## Bước 2: Cài đặt Backend
@@ -247,7 +247,7 @@ error_reporting(E_ALL);
 
 ### 1. Backup Database
 ```bash
-mysqldump website_analytics > backup_$(date +%Y%m%d).sql
+mysqldump domainn4_track > backup_$(date +%Y%m%d).sql
 ```
 
 ### 2. Clean old data

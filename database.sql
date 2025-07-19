@@ -1,6 +1,6 @@
 -- Tạo database và bảng cho hệ thống tracking
-CREATE DATABASE IF NOT EXISTS website_analytics;
-USE website_analytics;
+CREATE DATABASE IF NOT EXISTS domainn4_track;
+USE domainn4_track;
 
 -- Bảng lưu thông tin tên miền
 CREATE TABLE IF NOT EXISTS domains (
