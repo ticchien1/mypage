@@ -58,7 +58,7 @@ try {
     $db->query("INSERT INTO visits (domain_id, ip_address, user_agent, page_url, referrer, session_id) VALUES (?, ?, ?, ?, ?, ?)", 
         [$domainId, $ipAddress, $userAgent, $url, $referrer, $sessionId]);
     
-    // Cập nhật hourly stats
+    // Cập nhật hourly stats - sử dụng múi giờ Việt Nam
     $currentHour = date('Y-m-d H:00:00');
     
     // Kiểm tra xem đã có record cho giờ này chưa
