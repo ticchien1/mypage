@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">
+                    <i class="icon">📊</i>
+                    Website Analytics
+                </h1>
+                <div class="header-controls">
+                    <div class="date-picker">
+                        <input type="date" id="datePicker" class="date-input">
+                    </div>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-type="total">Tổng lượt truy cập</button>
+                        <button class="toggle-btn" data-type="unique">Chủ thể thật (IP)</button>
+                    </div>
+                    <button class="refresh-btn" id="refreshBtn">
+                        <i class="icon">🔄</i>
+                        Làm mới
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3 class="stat-title">Tổng truy cập hôm nay</h3>
+                            <div class="stat-value" id="totalVisitsToday">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🌐</div>
+                        <div class="stat-info">
+                            <h3 class="stat-title">Chủ thể thật hôm nay</h3>
+                            <div class="stat-value" id="uniqueVisitorsToday">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-info">
+                            <h3 class="stat-title">Trang web hoạt động</h3>
+                            <div class="stat-value" id="activeDomains">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card realtime">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-info">
+                            <h3 class="stat-title">Truy cập thời gian thực</h3>
+                            <div class="stat-value" id="realtimeVisitors">0</div>
+                            <div class="stat-subtitle">5 phút gần nhất</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <!-- Hourly Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2>Thống kê theo giờ</h2>
+                            <div class="chart-controls">
+                                <select id="domainFilter" class="domain-select">
+                                    <option value="">Tất cả trang web</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="hourlyChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Domains List -->
+                    <div class="domains-container">
+                        <div class="domains-header">
+                            <h2>Trang web của bạn</h2>
+                            <div class="domains-summary">
+                                <span id="domainsSummary">0 trang web</span>
+                            </div>
+                        </div>
+                        <div class="domains-list" id="domainsList">
+                            <!-- Domains sẽ được load bằng JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Trend Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h2>Xu hướng 30 ngày</h2>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Đang tải dữ liệu...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
