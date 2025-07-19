@@ -61,9 +61,9 @@ mysql -u root -p < database.sql
 ```php
 // config/database.php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'website_analytics'); 
-define('DB_USER', 'your_username');
-define('DB_PASS', 'your_password');
+define('DB_NAME', 'domainn4_track'); 
+define('DB_USER', 'domainn4_track');
+define('DB_PASS', 'domainn4_track');
 ```
 
 3. **Chèn tracking code:**

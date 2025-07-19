@@ -1,9 +1,9 @@
 <?php
 // Cấu hình database
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'website_analytics');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_NAME', 'domainn4_track');
+define('DB_USER', 'domainn4_track');
+define('DB_PASS', 'domainn4_track');
 define('DB_CHARSET', 'utf8mb4');
 
 // Thiết lập múi giờ Việt Nam
