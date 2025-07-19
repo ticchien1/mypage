@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Website - Test Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .content {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .button {
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #059669;
+        }
+        .link {
+            color: #4f46e5;
+            text-decoration: none;
+            margin: 10px;
+            display: inline-block;
+        }
+        .status {
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .form input, .form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 Demo Website - Test Analytics</h1>
+        <p>Trang này được sử dụng để test hệ thống analytics của bạn</p>
+    </div>
+
+    <div class="content">
+        <h2>Thông tin tracking</h2>
+        <div class="status">
+            <strong>Status:</strong> <span id="trackingStatus">Đang kiểm tra...</span><br>
+            <strong>Domain:</strong> <span id="currentDomain"></span><br>
+            <strong>Session ID:</strong> <span id="sessionId"></span><br>
+            <strong>Page URL:</strong> <span id="pageUrl"></span>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Test Events</h2>
+        <p>Click các button và link dưới đây để test tracking events:</p>
+        
+        <button class="button" onclick="testButtonClick('subscribe')">Subscribe Button</button>
+        <button class="button" onclick="testButtonClick('download')">Download Button</button>
+        <button class="button" onclick="testButtonClick('contact')">Contact Button</button>
+        
+        <br><br>
+        
+        <a href="#section1" class="link">Link to Section 1</a>
+        <a href="#section2" class="link">Link to Section 2</a>
+        <a href="https://google.com" class="link" target="_blank">External Link</a>
+    </div>
+
+    <div class="content">
+        <h2>Test Form</h2>
+        <div class="form">
+            <form onsubmit="testFormSubmit(event)">
+                <input type="text" placeholder="Tên của bạn" required>
+                <input type="email" placeholder="Email của bạn" required>
+                <textarea placeholder="Tin nhắn của bạn" rows="4" required></textarea>
+                <button type="submit" class="button">Gửi Form</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content" id="section1">
+        <h2>Section 1 - Scroll Test</h2>
+        <p>Scroll xuống để test scroll depth tracking...</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <div class="content" id="section2">
+        <h2>Section 2 - More Content</h2>
+        <p>Đây là nội dung để test scroll tracking...</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+    </div>
+
+    <div class="content">
+        <h2>Debug Info</h2>
+        <div id="debugInfo" style="background: #1f2937; color: #e5e7eb; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 12px; white-space: pre-wrap;"></div>
+    </div>
+
+    <!-- Analytics Tracking Code -->
+    <script>
+        // Đây là nơi bạn sẽ chèn mã tracking.js
+        // Hoặc thay thế bằng URL thật của tracking script
+        
+        // Cấu hình cho demo
+        const DEMO_CONFIG = {
+            apiUrl: '../api/track.php', // Thay đổi thành URL thật của bạn
+            sessionTimeout: 30 * 60 * 1000,
+            trackingEnabled: true,
+            debug: true // Bật debug mode
+        };
+
+        // Simulation của tracking system (thay thế bằng tracking.js thật)
+        window.analytics = {
+            track: function(eventName, data) {
+                console.log('🎯 Analytics Event:', eventName, data);
+                addDebugInfo(`Event: ${eventName}`, data);
+                
+                // Thực tế sẽ gửi đến API
+                if (DEMO_CONFIG.trackingEnabled) {
+                    // fetch(DEMO_CONFIG.apiUrl, { ... })
+                }
+            },
+            config: function(newConfig) {
+                Object.assign(DEMO_CONFIG, newConfig);
+                console.log('⚙️ Analytics Config Updated:', DEMO_CONFIG);
+            }
+        };
+
+        // Demo functions
+        function testButtonClick(buttonType) {
+            analytics.track('button_click', {
+                button_type: buttonType,
+                page: 'demo',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function testFormSubmit(event) {
+            event.preventDefault();
+            analytics.track('form_submit', {
+                form_type: 'contact',
+                page: 'demo',
+                timestamp: new Date().toISOString()
+            });
+            alert('Form submitted! Check console for analytics event.');
+        }
+
+        function addDebugInfo(event, data) {
+            const debugDiv = document.getElementById('debugInfo');
+            const timestamp = new Date().toLocaleTimeString();
+            debugDiv.textContent += `[${timestamp}] ${event}: ${JSON.stringify(data, null, 2)}\n`;
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+        }
+
+        // Update page info
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('currentDomain').textContent = window.location.hostname;
+            document.getElementById('pageUrl').textContent = window.location.href;
+            document.getElementById('sessionId').textContent = 'demo_session_' + Date.now();
+            document.getElementById('trackingStatus').textContent = 'Demo Mode - OK';
+            
+            // Simulate page view
+            analytics.track('pageview', {
+                title: document.title,
+                url: window.location.href,
+                referrer: document.referrer
+            });
+
+            addDebugInfo('Page Loaded', {
+                title: document.title,
+                url: window.location.href
+            });
+        });
+
+        // Test visibility change
+        document.addEventListener('visibilitychange', function() {
+            analytics.track('visibility_change', {
+                hidden: document.hidden,
+                timestamp: new Date().toISOString()
+            });
+        });
+    </script>
+
+    <!-- Chèn tracking.js thật ở đây -->
+    <!-- <script src="../tracking.js"></script> -->
+    
+    <!-- Hoặc chèn mã tracking trực tiếp -->
+    <script>
+        // CHÚ Ý: Thay thế đoạn demo code ở trên bằng nội dung file tracking.js
+        // và cấu hình đúng apiUrl
+        console.log('📝 Để sử dụng thật, hãy thay thế đoạn code demo bằng tracking.js thật');
+        console.log('🔧 Và cấu hình đúng apiUrl trong tracking.js');
+    </script>
+</body>
+</html>
